@@ -12,7 +12,7 @@ Para asegurar un despliegue eficiente y de bajo costo, la solución utiliza un e
 * **Modelo de Lenguaje (LLM):** Llama 3.1 8B (vía Groq API) para latencia ultrabaja.
 * **Frontend:** Streamlit.
 
-## ⚙️ Requisitos Previos
+## Requisitos Previos
 * Python 3.10 o superior.
 * Una API Key gratuita de [Groq](https://console.groq.com/).
 
