@@ -1,10 +1,10 @@
-# 🤖 SoftTech Solutions - Asistente de Soporte Técnico (RAG)
+# SoftTech Solutions - Asistente de Soporte Técnico (RAG)
 
 Este repositorio contiene la implementación de un pipeline RAG (Retrieval-Augmented Generation) diseñado para automatizar la resolución de consultas técnicas de Nivel 1 para el software SaaS "SoftTech Solutions".
 
 El proyecto fue desarrollado para la asignatura **Ingeniería de Soluciones con IA (ISY0101)**.
 
-## 🏗️ Arquitectura y Tecnologías
+## Arquitectura y Tecnologías
 Para asegurar un despliegue eficiente y de bajo costo, la solución utiliza un enfoque híbrido con modelos locales y Open Source:
 * **Orquestador:** LangChain.
 * **Embeddings (Local):** HuggingFace (`all-MiniLM-L6-v2`) - Procesamiento 100% local y gratuito.
@@ -16,7 +16,7 @@ Para asegurar un despliegue eficiente y de bajo costo, la solución utiliza un e
 * Python 3.10 o superior.
 * Una API Key gratuita de [Groq](https://console.groq.com/).
 
-## 🚀 Instrucciones de Instalación
+## Instrucciones de Instalación
 
 **1. Clonar el repositorio**
 git clone https://github.com/felipeMon20/proyecto-IA.git
@@ -37,7 +37,7 @@ pip install langchain-chroma langchain-huggingface langchain-groq sentence-trans
 Crea un archivo llamado `.env` en la raíz del proyecto y agrega tu llave de Groq:
 GROQ_API_KEY=gsk_tu_clave_aqui
 
-## 🧠 Ejecución del Sistema
+## Ejecución del Sistema
 
 El sistema se divide en dos fases principales:
 
@@ -51,6 +51,6 @@ Una vez creada la carpeta `vector_store/`, levanta la interfaz gráfica ejecutan
 streamlit run app.py
 Esto abrirá automáticamente el navegador en `http://localhost:8501` con el asistente listo para responder preguntas basadas estrictamente en la documentación.
 
-## 👥 Autores
+## Autores
 * Felipe Monsalve
 * Gabriel Bermar
