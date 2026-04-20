@@ -7,9 +7,9 @@ sys.path.append(os.path.abspath('src'))
 from agent import responder_consulta
 
 # Configuración de la página web
-st.set_page_config(page_title="SoftTech RAG Bot", page_icon="🤖")
+st.set_page_config(page_title="SoftTech RAG Bot", page_icon="")
 
-st.title("🤖 Asistente de Soporte - SoftTech Solutions")
+st.title(" Asistente de Soporte - SoftTech Solutions")
 st.markdown("¡Hola! Soy el agente de soporte de Nivel 1. ¿En qué te puedo ayudar hoy basándome en nuestra documentación oficial?")
 
 # Inicializar la memoria (historial de chat) en la sesión

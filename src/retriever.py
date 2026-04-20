@@ -8,11 +8,11 @@ def setup_retriever():
     """
     Función que carga la base de datos vectorial existente y configura el motor de búsqueda.
     """
-    print("🧠 Cargando modelo de embeddings local (HuggingFace)...")
+    print(" Cargando modelo de embeddings local (HuggingFace)...")
     # Usamos exactamente el mismo modelo que usamos para vectorizar
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
-    print(f"📂 Cargando Base de Datos Vectorial desde: {CHROMA_PATH}...")
+    print(f" Cargando Base de Datos Vectorial desde: {CHROMA_PATH}...")
     # Cargamos ChromaDB apuntando a la carpeta donde guardamos los datos
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
     
@@ -30,12 +30,12 @@ def main():
     pregunta = "¿Qué es el Modelo Lambda?"
     
     print(f"\n❓ Pregunta: '{pregunta}'\n")
-    print("🔍 Buscando en la base de datos vectorial...")
+    print(" Buscando en la base de datos vectorial...")
     
     # Ejecutamos la búsqueda semántica
     resultados = retriever.invoke(pregunta)
     
-    print(f"✅ Se encontraron {len(resultados)} fragmentos relevantes:\n")
+    print(f" Se encontraron {len(resultados)} fragmentos relevantes:\n")
     
     # Mostramos los resultados (Chunks) y sus metadatos (página de origen)
     for i, doc in enumerate(resultados):

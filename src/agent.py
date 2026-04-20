@@ -7,13 +7,13 @@ import retriever # Importamos la función de búsqueda que creaste antes
 load_dotenv()
 
 def responder_consulta(pregunta):
-    print("\n🤖 Iniciando Agente de IA...")
+    print("\n Iniciando Agente de IA...")
     
     # 2. Cargar el recuperador (Retriever)
     motor_busqueda = retriever.setup_retriever()
     
     # 3. Buscar información en tu base de datos (VectorDB)
-    print(f"🔍 Buscando en los documentos la respuesta para: '{pregunta}'")
+    print(f" Buscando en los documentos la respuesta para: '{pregunta}'")
     documentos_recuperados = motor_busqueda.invoke(pregunta)
     
     # Extraer el texto de los documentos encontrados
@@ -39,7 +39,7 @@ def responder_consulta(pregunta):
     prompt = PromptTemplate.from_template(template)
     
     # 5. Configurar el LLM (Llama 3 a través de Groq)
-    print("🧠 Procesando respuesta con Llama 3 (Groq)...")
+    print(" Procesando respuesta con Llama 3 (Groq)...")
     # Temperature 0.0 evita que el modelo sea "creativo" (cero alucinaciones)
     llm = ChatGroq(temperature=0.0, model_name="llama-3.1-8b-instant")
     
@@ -60,7 +60,7 @@ def main():
     respuesta_final = responder_consulta(pregunta_prueba)
     
     print("\n" + "="*60)
-    print("✅ RESPUESTA FINAL DEL AGENTE:")
+    print(" RESPUESTA FINAL DEL AGENTE:")
     print("="*60)
     print(respuesta_final)
     print("="*60)

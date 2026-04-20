@@ -17,15 +17,15 @@ def main():
     
     # Validar que el PDF exista
     if not os.path.exists(DATA_PATH):
-        print(f"❌ Error: No se encontró el archivo en {DATA_PATH}")
+        print(f" Error: No se encontró el archivo en {DATA_PATH}")
         print("Por favor, asegúrate de colocar un PDF llamado 'manual_softtech.pdf' en la carpeta 'data/'.")
         return
 
     # 2. Cargar el PDF
-    print("📄 Cargando el documento PDF...")
+    print(" Cargando el documento PDF...")
     loader = PyPDFLoader(DATA_PATH)
     documentos = loader.load()
-    print(f"✅ Documento cargado: {len(documentos)} páginas detectadas.")
+    print(f" Documento cargado: {len(documentos)} páginas detectadas.")
 
     # 3. Fragmentación (Chunking) - Como indicamos en el Punto 3.2 del informe
     print("✂️ Fragmentando el texto (Recursive Chunking)...")
@@ -38,7 +38,7 @@ def main():
     print(f"✅ Texto dividido en {len(chunks)} fragmentos.")
 
     # 4. Vectorización y guardado en ChromaDB
-    print("🧠 Generando Embeddings y guardando en VectorDB...")
+    print(" Generando Embeddings y guardando en VectorDB...")
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     
     # Creamos la base de datos vectorial y la persistimos en la carpeta local
@@ -47,7 +47,7 @@ def main():
         embeddings, 
         persist_directory=CHROMA_PATH
     )
-    print(f"🚀 ¡Éxito! Base de datos vectorial persistida en la carpeta '{CHROMA_PATH}'.")
+    print(f" ¡Éxito! Base de datos vectorial persistida en la carpeta '{CHROMA_PATH}'.")
 
 if __name__ == "__main__":
     main()
