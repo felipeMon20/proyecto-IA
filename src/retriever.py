@@ -29,7 +29,7 @@ def main():
     # Aquí puedes escribir una pregunta relacionada con tu PDF de LinkedIn
     pregunta = "¿Qué es el Modelo Lambda?"
     
-    print(f"\n❓ Pregunta: '{pregunta}'\n")
+    print(f"\n Pregunta: '{pregunta}'\n")
     print(" Buscando en la base de datos vectorial...")
     
     # Ejecutamos la búsqueda semántica

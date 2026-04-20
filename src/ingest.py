@@ -28,14 +28,14 @@ def main():
     print(f" Documento cargado: {len(documentos)} páginas detectadas.")
 
     # 3. Fragmentación (Chunking) - Como indicamos en el Punto 3.2 del informe
-    print("✂️ Fragmentando el texto (Recursive Chunking)...")
+    print(" Fragmentando el texto (Recursive Chunking)...")
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,       # Tamaño máximo de cada fragmento
         chunk_overlap=50,     # Traslape para no perder el contexto entre cortes
         length_function=len
     )
     chunks = text_splitter.split_documents(documentos)
-    print(f"✅ Texto dividido en {len(chunks)} fragmentos.")
+    print(f" Texto dividido en {len(chunks)} fragmentos.")
 
     # 4. Vectorización y guardado en ChromaDB
     print(" Generando Embeddings y guardando en VectorDB...")
