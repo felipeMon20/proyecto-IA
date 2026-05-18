@@ -1,7 +1,10 @@
 langchain
-langchain-openai
+langgraph
+langchain-groq
+langchain-chroma
+langchain-huggingface
 chromadb
+sentence-transformers
 pypdf
-tiktoken
 python-dotenv
 streamlit
