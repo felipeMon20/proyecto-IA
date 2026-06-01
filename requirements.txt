@@ -1,4 +1,6 @@
 langchain
+langchain-core
+langsmith
 langgraph
 langchain-groq
 langchain-chroma

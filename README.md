@@ -5,69 +5,64 @@ Este repositorio contiene la implementación de un Agente Inteligente basado en 
 El proyecto fue desarrollado para la asignatura **Ingeniería de Soluciones con IA (ISY0101)**.
 
 ## Arquitectura y Componentes del Agente
-La solución ha evolucionado de un pipeline RAG tradicional a un Agente Funcional con capacidad de razonamiento ("Plan-and-Execute"). La arquitectura se compone de:
+La solución ha evolucionado de un pipeline RAG tradicional a un Agente Funcional con capacidad de razonamiento ("Plan-and-Execute") preparado para entornos de producción. La arquitectura se compone de:
 
 * **Orquestador (AgentExecutor):** Implementado con `langgraph.prebuilt.create_react_agent`, encargado de analizar la consulta y decidir la acción óptima.
 * **Módulo de Memoria:** `MemorySaver` de LangGraph, implementado con gestión de `thread_id` para aislar y mantener el historial de conversaciones en flujos prolongados.
 * **Modelo de Lenguaje (LLM):** Llama 3.3 70B Versatile (vía Groq API). Seleccionado específicamente por su alta capacidad de razonamiento lógico y precisión en la llamada a herramientas (Tool Calling).
-* **Base de Datos Vectorial:** ChromaDB con Embeddings locales de HuggingFace (`all-MiniLM-L6-v2`).
+* **Base de Datos Vectorial:** ChromaDB con Embeddings locales de HuggingFace (`all-MiniLM-L6-v2`). Limite de recuperación optimizado (`k=2`).
 
-### Arsenal de Herramientas (Tools)
-El agente posee autonomía para invocar las siguientes herramientas según las condiciones del entorno:
-1. `buscar_en_manuales`: Herramienta de recuperación semántica (RAG) que consulta la base de conocimientos vectorial para responder dudas operativas.
-2. `calcular_tiempo_respuesta`: Herramienta de razonamiento lógico que calcula Acuerdos de Nivel de Servicio (SLA) en base a la prioridad del incidente.
-3. `redactar_escalamiento`: Herramienta de escritura que genera un reporte estructurado para derivar casos no resueltos al Nivel 2.
+### Arsenal de Herramientas (Tools) e Integración
+El agente posee autonomía para interactuar con el entorno mediante las siguientes herramientas:
+1. `buscar_en_manuales`: Herramienta de recuperación semántica (RAG) que consulta la base de conocimientos vectorial.
+2. `calcular_tiempo_respuesta`: Herramienta de razonamiento lógico que calcula Acuerdos de Nivel de Servicio (SLA).
+3. `redactar_escalamiento`: Integración simulada con sistema CRM. Genera IDs únicos (UUID) y registra físicamente los incidentes críticos en la base de datos local (`data/tickets_escalados.csv`).
+
+## Características de Producción (Unidad 3)
+* **Observabilidad y Trazabilidad:** Integración nativa con LangSmith para el monitoreo de latencia (P50/P99), costo de tokens y análisis de trazas de ejecución en tiempo real.
+* **Sostenibilidad y Escalabilidad (IA Verde):** Implementación de Caché Semántico en memoria (`InMemoryCache`) que reduce el tiempo de respuesta a 0ms y el costo de API a cero en consultas recurrentes.
+* **Protocolos de Ciberseguridad y Privacidad:** * Middleware de sanitización mediante expresiones regulares (Regex) para la protección de PII (censura automática de RUTs, correos electrónicos y tarjetas de crédito).
+  * Guardrails anti-Prompt Injection estructurados en el Prompt de Sistema para evitar manipulaciones y fuga de datos (Data Leakage).
+* **Ciclo de Feedback:** Implementación de métricas de valoración del usuario en la interfaz gráfica para la mejora continua del sistema.
 
 ## Requisitos Previos
 * Python 3.10 o superior.
-* Una API Key de [Groq](https://console.groq.com/).
+* API Key de [Groq](https://console.groq.com/).
+* API Key de [LangSmith](https://smith.langchain.com/) (Para telemetría).
 
-## Instrucciones de Instalación
+## Instrucciones de Instalación y Ejecución
 
 **1. Clonar el repositorio**
 ```bash
 git clone [https://github.com/felipeMon20/proyecto-IA.git](https://github.com/felipeMon20/proyecto-IA.git)
 cd "proyecto-IA"
+
 2. Crear y activar el entorno virtual
 
-Bash
 python -m venv venv
-# En Windows:
 venv\Scripts\activate
-# En Mac/Linux:
-source venv/bin/activate
+
 3. Instalar las dependencias
 
-Bash
 pip install -r requirements.txt
-pip install langchain-chroma langchain-huggingface langchain-groq sentence-transformers langgraph
-4. Configurar las variables de entorno
-Crea un archivo llamado .env en la raíz del proyecto y agrega tu llave de Groq:
 
-Fragmento de código
+4. Configuración de Variables de Entorno (.env)
+Crea un archivo .env en la raíz del proyecto con la siguiente estructura:
+
 GROQ_API_KEY=gsk_tu_clave_aqui
-Ejecución del Sistema
-El sistema opera en dos fases:
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT=[https://api.smith.langchain.com](https://api.smith.langchain.com)
+LANGCHAIN_API_KEY=lsv2_tu_clave_aqui
+LANGCHAIN_PROJECT=SoftTech_Soporte_Produccion
 
-Fase 1: Ingesta de Datos (Preparación de la Base de Conocimientos)
-Para procesar los manuales PDF en la carpeta data/ y generar la base de datos vectorial local, ejecuta:
+5. Fase de Ingesta (Preparación de Base de Datos)
 
-Bash
 python src/ingest.py
-Fase 2: Despliegue de la Plataforma de Soporte
-Para interactuar con el Agente Funcional a través de la interfaz gráfica, ejecuta:
 
-Bash
+6. Despliegue de la Plataforma (Interfaz de Usuario)
+
 streamlit run app.py
-El sistema abrirá el navegador en http://localhost:8501. La plataforma inyectará un ID de sesión único automáticamente para gestionar la memoria a corto plazo del agente.
 
 Autores
-Felipe Monsalve
-Gabriel Bermar
-
-
-### ¿Qué mejoramos con este cambio?
-* Se reemplazó el término "RAG" por "Agente Funcional" y "LangGraph", alineándose exactamente con el vocabulario técnico de la rúbrica (IE10).
-* Se agregaron las 3 herramientas requeridas en la descripción (IE1).
-* Se documentó el sistema de memoria `MemorySaver` y el `thread_id` (IE3 y IE4).
-* Quedó un diseño sumamente sobrio y técnico.
+ Felipe Monsalve
+ Gabriel Bermar

@@ -16,9 +16,9 @@ def setup_retriever():
     # Cargamos ChromaDB apuntando a la carpeta donde guardamos los datos
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
     
-    # Configuramos el retriever para devolver los 3 chunks más relevantes (Top-K = 3)
+    # Configuramos el retriever para devolver los 2 chunks más relevantes (Top-K = 3)
     # tal como prometimos en el Punto 3.3 del informe
-    retriever = db.as_retriever(search_kwargs={"k": 3})
+    retriever = db.as_retriever(search_kwargs={"k": 2})
     
     return retriever
 
