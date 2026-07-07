@@ -1,2 +1,5 @@
 Ticket_ID,Fecha,Prioridad,Estado,Descripcion
 EDC94E91,2026-06-01 04:21:45,Alta,Abierto,"Fallo crítico en servidores de base de datos de producción, clientes no pueden iniciar sesión y no hay solución en la documentación"
+1002E3EF,2026-07-03 22:29:59,Alta,Abierto,Los clientes reportan lentitud debido a intermitencias en los servidores de la base de datos.
+8F58F2E4,2026-07-03 23:27:51,Alta,Abierto,Clientes reportan lentitud debido a intermitencias en los servidores de la base de datos
+20239C4F,2026-07-03 23:45:35,Alta,Abierto,Clientes reportan lentitud debido a intermitencias en los servidores de base de datos
